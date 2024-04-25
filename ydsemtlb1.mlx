@@ -1,0 +1,20 @@
+% Define MATLAB variables
+d = 0.1;
+lambda = 0.000588;
+
+% Call the C++ function to calculate fringe width
+fringeWidth = call_cpp_fringe_width(d, lambda);
+disp("Fringe width: " + num2str(fringeWidth) + " m");
+
+% Call the C++ function to calculate the position of the nth order maximum
+nthOrderMaxPos = call_cpp_nth_order_max(3, d, lambda);
+disp("Position of 3rd order maximum: " + num2str(nthOrderMaxPos) + " m");
+
+% Define the MATLAB functions to call the C++ functions
+function fringeWidth = call_cpp_fringe_width(d, lambda)
+    fringeWidth = mexCallMATLAB(..., 'cpp_fringe_width', d, lambda);
+end
+
+function nthOrderMaxPos = call_cpp_nth_order_max(n, d, lambda)
+    nthOrderMaxPos = mexCallMATLAB(..., 'cpp_nth_order_max', n, d, lambda);
+end
